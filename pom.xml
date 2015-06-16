@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ch.icclab.cyclops.billingservice</groupId>
-    <artifactId>billing</artifactId>
+    <artifactId>cyclops-billing</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>Billing Micro Service</name>
