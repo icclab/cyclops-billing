@@ -17,6 +17,7 @@
 
 package ch.icclab.cyclops.resource.impl;
 
+import ch.icclab.cyclops.util.APICallCounter;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
@@ -26,8 +27,12 @@ import org.restlet.resource.ServerResource;
  * Description:
  */
 public class RootResource extends ServerResource {
+    private String endpoint = "/";
+    private APICallCounter counter = APICallCounter.getInstance();
+
     @Get
-    public String rootMsg(){
+    public String rootMsg() {
+        counter.increment(endpoint);
         String response = "CYCLOPS Billing Service v0.0.1";
         return response;
     }

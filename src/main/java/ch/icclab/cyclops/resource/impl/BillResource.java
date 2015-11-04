@@ -18,6 +18,7 @@
 package ch.icclab.cyclops.resource.impl;
 
 import ch.icclab.cyclops.resource.client.RcServiceClient;
+import ch.icclab.cyclops.util.APICallCounter;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
@@ -27,6 +28,8 @@ import org.restlet.resource.ServerResource;
  * Description: Creates the bill by combining the CDRs along with the tax and SLA details
  */
 public class BillResource extends ServerResource {
+    private String endpoint = "/invoice";
+    private APICallCounter counter = APICallCounter.getInstance();
     /**
      * Connects to the RC Service and requests for the CDRs. Fetches the tax and SLA penalties.
      * Constructs the bill response
@@ -35,6 +38,7 @@ public class BillResource extends ServerResource {
      */
     @Get
     public String generateBill(){
+        counter.increment(endpoint);
         String response;
         RcServiceClient client = new RcServiceClient();
         String userid = getQueryValue("userid");

@@ -2,6 +2,8 @@ package ch.icclab.cyclops.application;
 
 import ch.icclab.cyclops.resource.impl.BillResource;
 import ch.icclab.cyclops.resource.impl.RootResource;
+import ch.icclab.cyclops.util.APICallCounter;
+import ch.icclab.cyclops.util.APICallEndpoint;
 import ch.icclab.cyclops.util.Load;
 import org.restlet.Application;
 import org.restlet.Context;
@@ -16,7 +18,7 @@ import org.restlet.routing.Router;
 public class BillingServiceApplication extends Application {
     /**
      * This method handles the incoming request and routes it to the appropriate resource class
-     *
+     * <p>
      * Pseudo code
      * 1. Create an instance of Router
      * 2. Attach the api end points and their respective resource class for request handling
@@ -24,28 +26,34 @@ public class BillingServiceApplication extends Application {
      *
      * @return Restlet
      */
-    public Restlet createInboundRoot(){
+    public Restlet createInboundRoot() {
         loadConfiguration(getContext());
+        APICallCounter counter = APICallCounter.getInstance();
 
         Router router = new Router();
         router.attach("/", RootResource.class);
-        router.attach("/invoice", BillResource.class);
+        counter.registerEndpoint("/");
 
+        router.attach("/status", APICallEndpoint.class);
+        counter.registerEndpoint("/status");
+
+        router.attach("/invoice", BillResource.class);
+        counter.registerEndpoint("/invoice");
         return router;
     }
 
     /**
      * Loads the configuration file at the beginning of the application startup
-     *
+     * <p>
      * Pseudo Code
      * 1. Create the LoadConfiguration class
      * 2. Load the file if the the existing instance of the class is empty
      *
      * @param context
      */
-    private void loadConfiguration(Context context){
+    private void loadConfiguration(Context context) {
         Load load = new Load();
-        if(load.configuration == null){
+        if (load.configuration == null) {
             load.configFile(getContext());
         }
     }
