@@ -43,8 +43,8 @@ public class RcServiceClient extends ClientResource {
     /**
      * Connects to the RC Service and requests for the CDRs for a user between a time period
      *
-     * @param from String
-     * @param to String
+     * @param from   String
+     * @param to     String
      * @param userId String
      * @return String
      */
@@ -63,6 +63,64 @@ public class RcServiceClient extends ClientResource {
         try {
             resultArray = new JSONObject(output.getText());
             chargeDataRecords = mapper.readValue(resultArray.toString(), RcServiceResponse.class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return resultArray.toString();
+    }
+
+    public String getCdrForRevenueSharing(String virtualFunctionProvider, String serviceProvider, String fromDate, String toDate) {
+        JSONObject resultArray = null;
+        RcServiceResponse chargeDataRecords = null;
+        ObjectMapper mapper = new ObjectMapper();
+        Client client = new Client(Protocol.HTTP);
+
+        ClientResource resource = new ClientResource(url + "/revenue");
+        resource.getReference().addQueryParameter("vfpId", virtualFunctionProvider);
+        resource.getReference().addQueryParameter("spId", serviceProvider);
+        resource.getReference().addQueryParameter("from", fromDate);
+        resource.getReference().addQueryParameter("to", toDate);
+        resource.get(MediaType.APPLICATION_JSON);
+        Representation output = resource.getResponseEntity();
+        try {
+            resultArray = new JSONObject(output.getText());
+            chargeDataRecords = mapper.readValue(resultArray.toString(), RcServiceResponse.class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return resultArray.toString();
+    }
+
+    public String getCdrForRevenueSharingReport(String virtualFunctionProvider, String serviceProvider, String fromDate, String toDate) {
+        JSONObject resultArray = null;
+        RcServiceResponse chargeDataRecords = null;
+        ObjectMapper mapper = new ObjectMapper();
+        Client client = new Client(Protocol.HTTP);
+
+        ClientResource resource = new ClientResource(url + "/revenue/report");
+        resource.getReference().addQueryParameter("vfpId", virtualFunctionProvider);
+        resource.getReference().addQueryParameter("spId", serviceProvider);
+        resource.getReference().addQueryParameter("from", fromDate);
+        resource.getReference().addQueryParameter("to", toDate);
+        resource.get(MediaType.APPLICATION_JSON);
+        Representation output = resource.getResponseEntity();
+        try {
+            resultArray = new JSONObject(output.getText());
+//            chargeDataRecords = mapper.readValue(resultArray.toString(), RcServiceResponse.class);
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {

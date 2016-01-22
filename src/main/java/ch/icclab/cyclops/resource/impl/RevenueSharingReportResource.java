@@ -14,7 +14,6 @@
  *     License for the specific language governing permissions and limitations
  *     under the License.
  */
-
 package ch.icclab.cyclops.resource.impl;
 
 import ch.icclab.cyclops.resource.client.RcServiceClient;
@@ -22,11 +21,10 @@ import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
 /**
- * Author: Srikanta
- * Created on: 26-May-15
- * Description: Creates the bill by combining the CDRs along with the tax and SLA details
+ * @author Manu
+ *         Created on 04.12.15.
  */
-public class BillResource extends ServerResource {
+public class RevenueSharingReportResource extends ServerResource {
     /**
      * Connects to the RC Service and requests for the CDRs. Fetches the tax and SLA penalties.
      * Constructs the bill response
@@ -34,14 +32,15 @@ public class BillResource extends ServerResource {
      * @return String
      */
     @Get
-    public String generateBill(){
+    public String generateRevenueSharing(){
         String response;
         RcServiceClient client = new RcServiceClient();
-        String userid = getQueryValue("userid");
+        String virtualFunctionProvider = getQueryValue("vfpId");
+        String serviceProvider = getQueryValue("spId");
         String fromDate = getQueryValue("from");
         String toDate = getQueryValue("to");
 
-        response = client.getCdr(userid,fromDate,toDate);
+        response = client.getCdrForRevenueSharingReport(virtualFunctionProvider, serviceProvider,fromDate,toDate);
 
         // Consider the discount
         // Add Tax and other charges
@@ -49,5 +48,4 @@ public class BillResource extends ServerResource {
 
         return response;
     }
-
 }

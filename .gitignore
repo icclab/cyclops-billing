@@ -3,6 +3,7 @@
 .idea
 
 #Compiled classes & config file
-src/main/webapp/WEB-INF/configuration.txt
 target
 billing.iml
+.DS_Store
+
