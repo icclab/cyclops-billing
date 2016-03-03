@@ -55,7 +55,7 @@ public class RcServiceClient extends ClientResource {
         Client client = new Client(Protocol.HTTP);
 
         ClientResource resource = new ClientResource(url + "/charge");
-        resource.getReference().addQueryParameter("userid", userId);
+        resource.getReference().addQueryParameter("userId", userId);
         resource.getReference().addQueryParameter("from", from);
         resource.getReference().addQueryParameter("to", to);
         resource.get(MediaType.APPLICATION_JSON);

@@ -1,1 +1,5 @@
+InfluxDBURL==http://localhost:8086
+InfluxDBUsername==root
+InfluxDBPassword==root
+InfluxDBDatabaseName==billing_service
 RcServiceUrl==http://localhost:8080/rc

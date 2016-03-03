@@ -37,7 +37,7 @@ public class BillResource extends ServerResource {
     public String generateBill(){
         String response;
         RcServiceClient client = new RcServiceClient();
-        String userid = getQueryValue("userid");
+        String userid = getQueryValue("userId");
         String fromDate = getQueryValue("from");
         String toDate = getQueryValue("to");
 
