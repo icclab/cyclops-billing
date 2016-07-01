@@ -1,5 +1,8 @@
 <a href="http://icclab.github.io/cyclops" target="_blank"><img align="middle" src="http://icclab.github.io/cyclops/assets/images/logo_big.png"></img></a>
 
+# New release
+The RCB Cyclops 2.0 is finally available, please visit this <a href="https://github.com/icclab/cyclops">page</a> and update accordingly.
+
 ## Billing microservice
 Billing Micro Service as part of <a href="http://icclab.github.io/cyclops">Cyclops framework</a> is the final component before an invoice is generated. It interfaces with <a href="https://github.com/icclab/cyclops-rc">RC service</a> to get a list of Charge Data Records for a user, similarly a list of SLA violations are got from the external SLA module to be combined to generate an invoice. This is used to create bills. The billing service exposes different functionalities of invoice generation, tax & discount management through its REST APIs. 
 
